@@ -1,7 +1,18 @@
+name: Deploy MkDocs
 
-site_name: LOD 뉴비 가이드
-theme:
-  name: material
-  language: ko
-nav:
-  - 홈: index.md
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - run: pip install mkdocs-material
+      - run: mkdocs gh-deploy --force
